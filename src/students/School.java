@@ -72,7 +72,8 @@ public class School {
 		System.out.println("--------------");
 		
 		roster.stream()
-		.collect(Collectors.groupingBy(Student::getFirstName))
+		.collect(Collectors.groupingBy(Student::getFirstName,
+				Collectors.counting()))
 		.entrySet().forEach(System.out::println);
 		System.out.println("--------------");
 	}
