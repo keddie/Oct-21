@@ -4,15 +4,18 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class School {
 
 	public static void main(String[] args) {
-		List<Student> roster = Arrays.asList(Student.ofNamesGpaCourses("Fred", "Jones", 3.2F, "Math", "Physics"),
+		List<Student> roster = Arrays.asList(
+				Student.ofNamesGpaCourses("Fred", "Jones", 3.2F, "Math", "Physics"),
 				Student.ofNamesGpaCourses("Jim", "Smith", 3.4F, "Math", "Physics", "Chemistry"),
 				Student.ofNamesGpaCourses("Shiela", "Pearl", 2.9F, "Math"),
 				Student.ofNamesGpaCourses("Alice", "Barnett", 2.2F, "Chemistry", "Physics", "Biology"),
+				Student.ofNamesGpaCourses("Shiela", "Smith", 3.9F, "Math", "Organic Chemistry"),
 				Student.ofNamesGpaCourses("Fred", "Jones", 3.1F, "Math"),
 				Student.ofNamesGpaCourses("Fred", "Blair", 3.7F, "Math", "Art"),
 				Student.ofNamesGpaCourses("Jenny", "Smith", 3.1F, "Art", "French", "Geography"));
@@ -60,6 +63,25 @@ public class School {
 		.flatMap(s-> Stream.of(s.getFirstName(), s.getLastName()))
 		.forEach(System.out::println);
 		System.out.println("--------------");
+
+		roster.stream()
+		.flatMap(s-> s.getCourses().stream())
+		.distinct()
+		.sorted()
+		.forEach(System.out::println);
+		System.out.println("--------------");
+		
+		roster.stream()
+		.collect(Collectors.groupingBy(Student::getFirstName))
+		.entrySet().forEach(System.out::println);
+		System.out.println("--------------");
 	}
 
 }
+
+
+
+
+
+
+
