@@ -35,7 +35,7 @@ public class Averager {
 	public static void main(String[] args) {
 		long start = System.nanoTime();
 		AverageInProgress avg = 
-			Stream.generate(() -> ThreadLocalRandom.current().nextDouble())
+			ThreadLocalRandom.current().doubles()
 			//.parallel()
 			.unordered()
 				.limit(1_000_000_000L)
