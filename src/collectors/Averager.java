@@ -1,6 +1,7 @@
 package collectors;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 class AverageInProgress {
@@ -35,7 +36,7 @@ public class Averager {
 	public static void main(String[] args) {
 		long start = System.nanoTime();
 		AverageInProgress avg = 
-			ThreadLocalRandom.current().doubles()
+			DoubleStream.generate(() -> ThreadLocalRandom.current().nextDouble())
 			.parallel()
 			.unordered()
 				.limit(1_000_000_000L)
