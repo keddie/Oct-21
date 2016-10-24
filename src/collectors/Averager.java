@@ -53,8 +53,8 @@ public class Averager {
 		long start = System.nanoTime();
 		Double average = 
 			ThreadLocalRandom.current().doubles()
-			//.parallel()
-			//.unordered()
+			.parallel()
+			.unordered()
 				.limit(1_000_000_000L)
 				.average()
 				.getAsDouble();
