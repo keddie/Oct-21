@@ -1,8 +1,6 @@
 package collectors;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 class AverageInProgress {
@@ -44,12 +42,6 @@ public class Averager {
 				.collect(AverageInProgress::new,
 						 AverageInProgress::include,
 						 AverageInProgress::merge);
-//		AverageInProgress avg = 
-//			Stream.generate(() -> ThreadLocalRandom.current().nextDouble())
-//				.limit(100_000)
-//				.collect(() -> new AverageInProgress(),
-//						 (a,v) -> a.include(v),
-//						 (a1, a2) -> a1.merge(a2););
 		long end = System.nanoTime();
 		System.out.printf("Average of %d numbers is %9.7f and computed in %12.9f ms\n", 
 				avg.getCount(), avg.getAverage(), (end - start ) / 1_000_000.0);
