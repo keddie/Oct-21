@@ -51,17 +51,15 @@ public class Averager {
 	public static void main(String[] args) {
 		System.out.println(AverageInProgress.stats());
 		long start = System.nanoTime();
-		AverageInProgress avg = 
+		Double average = 
 			ThreadLocalRandom.current().doubles()
-			.parallel()
-			.unordered()
+			//.parallel()
+			//.unordered()
 				.limit(1_000_000_000L)
-				.collect(AverageInProgress::new,
-						 AverageInProgress::include,
-						 AverageInProgress::merge);
+				.average()
+				.getAsDouble();
 		long end = System.nanoTime();
-		System.out.printf("Average of %d numbers is %9.7f and computed in %12.9f ms\n", 
-				avg.getCount(), avg.getAverage(), (end - start ) / 1_000_000.0);
+		System.out.printf("Average is %f, time is %f\n",average,(end-start) / 1_000_000.0);
 		System.out.println(AverageInProgress.stats());
 	}
 
